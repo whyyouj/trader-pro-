@@ -11,19 +11,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-module.exports = async function (email, url) {
+module.exports = async function (email, subjectLine, template) {
   try {
     // send mail with defined transport object
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       to: email, // receiver
-      subject: "Email Confirmation", // Subject line
-      // text: "Hello world?", // plain text body
-      html: `<h2>Thanks for signing up</h2>
-      <p>Please <a href=${url}>Click Here</a> to confirm your email</p>`, // html body
+      subject: subjectLine, // Subject line
+      html: template, // html body
     });
-
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-    console.log("Message sent: %s", info.messageId);
   } catch (err) {
     console.log("Sending Failed: ", err);
   }
