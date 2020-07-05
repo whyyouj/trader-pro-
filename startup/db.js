@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const mongoURI = process.env.MONGO_URI;
+const mongoURI =
+  process.env.MONGO_URI || "mongodb://localhost/startup-template";
 
 module.exports = function () {
   mongoose.set("useFindAndModify", false);
