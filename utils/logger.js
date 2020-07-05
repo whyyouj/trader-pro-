@@ -1,5 +1,5 @@
 const { createLogger, transports, format } = require("winston");
-require("winston-mongodb");
+const isProduction = process.env.NODE_ENV === "production";
 
 let winstonFormat = format.combine(
   format.json(),
@@ -8,10 +8,6 @@ let winstonFormat = format.combine(
   format.errors({ stack: true })
 );
 
-if (process.env.NODE_ENV === "production") {
-  winstonFormat = format.json();
-}
-
 const logger = createLogger({
   format: winstonFormat,
   transports: [
@@ -19,30 +15,25 @@ const logger = createLogger({
       filename: "logs/info.log",
       level: "info",
     }),
-    new transports.Console({
-      level: "info",
-    }),
-    new transports.MongoDB({
-      level: "error",
-      db: process.env.MONGO_URI,
-      options: {
-        useUnifiedTopology: true,
-      },
-    }),
   ],
   exceptionHandlers: [
     new transports.File({ level: "error", filename: "logs/exceptions.log" }),
-    new transports.Console({
-      level: "error",
-    }),
-    new transports.MongoDB({
-      level: "error",
-      db: process.env.MONGO_URI,
-      options: {
-        useUnifiedTopology: true,
-      },
-    }),
   ],
 });
+
+if (isProduction) {
+  winstonFormat = format.json();
+} else {
+  logger.add(
+    new transports.Console({
+      level: "info",
+    })
+  );
+  logger.exceptions.handle(
+    new transports.Console({
+      level: "error",
+    })
+  );
+}
 
 module.exports = logger;
