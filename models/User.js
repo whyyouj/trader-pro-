@@ -3,10 +3,14 @@ const Schema = mongoose.Schema;
 const Joi = require("@hapi/joi");
 const jwt = require("jsonwebtoken");
 
-const secretKey = process.env.portal_jwtPrivateKey;
+const secretKey = process.env.jwtPrivateKey;
 
 const userSchema = new Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -25,24 +29,19 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
 });
 
-userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign(
-    { id: this._id, name: this.name, isAdmin: this.isAdmin },
-    secretKey,
-    { expiresIn: "1d" }
-  );
+userSchema.methods.generateAuthToken = function (expiryTime = "1d") {
+  const token = jwt.sign({ id: this._id, name: this.name }, secretKey, {
+    expiresIn: expiryTime,
+  });
   return token;
 };
 
 const validateUser = function (user) {
   const schema = Joi.object({
-    name: Joi.string().min(3).max(255).required(),
+    firstName: Joi.string().min(3).max(255).required(),
+    lastName: Joi.string().min(3).max(255).required(),
     email: Joi.string().email().max(255).required(),
     password: Joi.string().min(5).max(255).required(),
   });
@@ -50,5 +49,18 @@ const validateUser = function (user) {
   return schema.validate(user);
 };
 
+const validateEmail = function (email) {
+  const schema = Joi.object({
+    email: Joi.string()
+      .email()
+      .message("Invalid email address!")
+      .max(255)
+      .required(),
+  });
+
+  return schema.validate(email);
+};
+
 module.exports = mongoose.model("User", userSchema);
 module.exports.validateUser = validateUser;
+module.exports.validateEmail = validateEmail;
