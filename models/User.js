@@ -21,7 +21,7 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    minlength: 5,
+    minlength: 6,
     maxlength: 1024,
     required: true,
   },
@@ -32,9 +32,17 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.generateAuthToken = function (expiryTime = "1d") {
-  const token = jwt.sign({ id: this._id, name: this.name }, secretKey, {
-    expiresIn: expiryTime,
-  });
+  const token = jwt.sign(
+    {
+      id: this._id,
+      name: this.firstName,
+      isVerified: this.isVerified,
+    },
+    secretKey,
+    {
+      expiresIn: expiryTime,
+    }
+  );
   return token;
 };
 
