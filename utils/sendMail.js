@@ -12,14 +12,10 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports = async function (email, subjectLine, template) {
-  try {
-    // send mail with defined transport object
-    await transporter.sendMail({
-      to: email, // receiver
-      subject: subjectLine, // Subject line
-      html: template, // html body
-    });
-  } catch (err) {
-    console.log("Sending Failed: ", err);
-  }
+  // send mail with defined transport object
+  await transporter.sendMail({
+    to: email, // receiver
+    subject: subjectLine, // Subject line
+    html: template, // html body
+  });
 };
