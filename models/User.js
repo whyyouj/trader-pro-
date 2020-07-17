@@ -3,7 +3,14 @@ const Schema = mongoose.Schema;
 const Joi = require("@hapi/joi");
 const jwt = require("jsonwebtoken");
 
-const secretKey = process.env.jwtPrivateKey;
+const sendEmail = require("../utils/sendMail");
+const {
+  confirmationEmailTemplate,
+  resetPasswordEmailTemplate,
+} = require("../utils/emailTemplates");
+
+const { jwtPrivateKey, tokenKey } = process.env;
+const isProduction = process.env.NODE_ENV === "production";
 
 const userSchema = new Schema({
   firstName: {
@@ -31,7 +38,7 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.methods.generateAuthToken = function (expiryTime = "1d") {
+userSchema.methods.generateAuthToken = function (secretKey = jwtPrivateKey) {
   const token = jwt.sign(
     {
       id: this._id,
@@ -40,10 +47,28 @@ userSchema.methods.generateAuthToken = function (expiryTime = "1d") {
     },
     secretKey,
     {
-      expiresIn: expiryTime,
+      expiresIn: "1d",
     }
   );
   return token;
+};
+
+userSchema.methods.sendConfirmationEmail = async function (hostname) {
+  const token = this.generateAuthToken(tokenKey);
+  let url = `https://${hostname}/confirmEmail/${token}`;
+  if (!isProduction) url = `http://localhost:3000/confirmEmail/${token}`;
+  const template = confirmationEmailTemplate(url);
+
+  await sendEmail(this.email, "Confirm Email", template);
+};
+
+userSchema.methods.sendResetPasswordEmail = async function (hostname) {
+  const token = this.generateAuthToken(tokenKey);
+  let url = `https://${hostname}/resetPassword/${token}`;
+  if (!isProduction) url = `http://localhost:3000/resetPassword/${token}`;
+  const template = resetPasswordEmailTemplate(url);
+
+  await sendEmail(this.email, "Reset Password", template);
 };
 
 const validateUser = function (user) {
@@ -51,24 +76,11 @@ const validateUser = function (user) {
     firstName: Joi.string().min(3).max(255).required(),
     lastName: Joi.string().min(3).max(255).required(),
     email: Joi.string().email().max(255).required(),
-    password: Joi.string().min(5).max(255).required(),
+    password: Joi.string().min(6).max(255).required(),
   });
 
   return schema.validate(user);
 };
 
-const validateEmail = function (email) {
-  const schema = Joi.object({
-    email: Joi.string()
-      .email()
-      .message("Invalid email address!")
-      .max(255)
-      .required(),
-  });
-
-  return schema.validate(email);
-};
-
 module.exports = mongoose.model("User", userSchema);
 module.exports.validateUser = validateUser;
-module.exports.validateEmail = validateEmail;
