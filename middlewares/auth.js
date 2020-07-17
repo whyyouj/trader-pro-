@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 
-const secretKey = process.env.portal_jwtPrivateKey;
+const { jwtPrivateKey, tokenKey } = process.env;
 
 module.exports = function (req, res, next) {
   const token = req.header("x-auth-token");
   if (!token) return res.status(401).send("Access denied. No token provided.");
   try {
-    const decoded = jwt.verify(token, secretKey);
+    const decoded = jwt.verify(token, jwtPrivateKey);
     req.user = decoded;
     next();
   } catch (ex) {
@@ -17,7 +17,7 @@ module.exports = function (req, res, next) {
 
 module.exports.verifyToken = function (token) {
   try {
-    const decoded = jwt.verify(token, secretKey);
+    const decoded = jwt.verify(token, tokenKey);
     return decoded;
   } catch (ex) {
     console.log(ex);
