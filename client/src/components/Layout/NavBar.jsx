@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
-import deepPurple from "@material-ui/core/colors/deepPurple";
+import blueGrey from "@material-ui/core/colors/blueGrey";
 
 import UserAccountMenu from "./UserAccountMenu";
 
@@ -30,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: deepPurple[200],
+    boxShadow: "none",
+    // zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: blueGrey[900],
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
