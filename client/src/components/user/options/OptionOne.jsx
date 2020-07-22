@@ -1,11 +1,11 @@
 import React from "react";
 
-function UserOne() {
+function OptionOne() {
   return (
     <div>
-      <h1>User One</h1>
+      <h1>Option One</h1>
     </div>
   );
 }
 
-export default UserOne;
+export default OptionOne;
