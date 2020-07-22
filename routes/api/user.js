@@ -39,11 +39,11 @@ router.post(
     user = new User(newUser);
     await user.save();
 
+    user.sendConfirmationEmail(req.hostname).catch((err) => {});
+
     res.send(
       "Account created Successfully. Confirmation email has been sent to you. "
     );
-
-    await user.sendConfirmationEmail(req.hostname);
   })
 );
 
