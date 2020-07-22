@@ -1,12 +1,22 @@
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MaterialLink from "@material-ui/core/Link";
 import IconButton from "@material-ui/core/IconButton";
-import { Link } from "react-router-dom";
+
+const useStyles = makeStyles({
+  root: {
+    textDecoration: "none",
+    color: "#263238",
+    fontWeight: "bold",
+  },
+});
 
 function UserAccountMenu({ data }) {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -33,22 +43,22 @@ function UserAccountMenu({ data }) {
         id="menu-appbar"
         anchorEl={anchorEl}
         keepMounted
-        transformOrigin={{
-          vertical: -60,
-          horizontal: "center",
-        }}
         open={open}
         onClose={handleClose}
       >
         {data.map((item) => (
           <MenuItem key={item.name} onClick={handleClose}>
-            <Link style={{ textDecoration: "none" }} to={item.link}>
+            <Link className={classes.root} to={item.link}>
               {item.name}
             </Link>
           </MenuItem>
         ))}
         <MenuItem onClick={handleClose}>
-          <MaterialLink underline="none" href="/logout">
+          <MaterialLink
+            className={classes.root}
+            underline="none"
+            href="/logout"
+          >
             Logout
           </MaterialLink>
         </MenuItem>
