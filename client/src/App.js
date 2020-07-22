@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { logout } from "./services/authService";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "./actions/authActions";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Toast from "./components/common/Toast";
 import User from "./components/user";
@@ -13,6 +14,8 @@ import ResetPassword from "./components/ResetPassword";
 import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+
   return (
     <div className="App">
       <Toast />
@@ -24,7 +27,7 @@ function App() {
         <Route path="/confirmEmail/:token" component={ConfirmEmail} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
-        <Route path="/logout" render={() => logout()} />
+        <Route path="/logout" render={() => dispatch(logoutUser())} />
         <ProtectedRoute path="/user" component={User} />
         <Redirect from="/" to="/user" />
       </Switch>
