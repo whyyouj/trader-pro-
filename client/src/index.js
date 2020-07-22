@@ -24,8 +24,6 @@ if (getJwt()) {
   if (decoded && decoded.exp < currentTime) {
     // Logout User
     logout();
-    // Redirect to Login
-    window.location = "/login";
   }
 }
 
