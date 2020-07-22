@@ -22,6 +22,12 @@ const useStyles = makeStyles((theme) => ({
   navItem: {
     marginLeft: 100,
   },
+  navLink: {
+    fontWeight: "bold",
+    color: "inherit",
+    textDecoration: "inherit",
+    margin: [[0, 10]],
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -67,7 +73,7 @@ export default function NavBar({ navItems }) {
         </div>
         <div className={classes.nav}>
           {navLinks.map((item) => (
-            <Link key={item.name} className="navItem" to={item.link}>
+            <Link key={item.name} className={classes.navLink} to={item.link}>
               {item.name}
             </Link>
           ))}

@@ -16,18 +16,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.navItem {
-  /* Size and position */
-  position: relative;
-  margin: 0 10px;
-
-  /* Styles */
-  cursor: pointer;
-  outline: none;
-
-  /* Font settings */
-  font-weight: bold;
-  color: inherit;
-  text-decoration: inherit;
-}
