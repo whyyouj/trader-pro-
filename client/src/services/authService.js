@@ -3,8 +3,8 @@ import http from "./httpService";
 
 const tokenKey = "token";
 
-export async function login(email, password) {
-  const { data } = await http.post("/api/auth", { email, password });
+export async function login(loginDetails) {
+  const { data } = await http.post("/api/auth", loginDetails);
   setToken(data.token);
 }
 
