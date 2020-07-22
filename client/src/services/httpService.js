@@ -9,7 +9,6 @@ Axios.interceptors.response.use(null, (error) => {
 
   if (!expectedError) {
     console.log("Unexpected Error", error);
-    // alert("An unexpected error occured");
     toastify("An Unexpected Error Occured!", "error");
   }
 
