@@ -35,7 +35,6 @@ function useForm({ initialValues, validationSchema, doSubmit }) {
 
     if (validationSchema) {
       const errors = validate();
-      console.log(errors);
       setErrors(errors || {});
       if (!isEmpty(errors)) return;
     }
