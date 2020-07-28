@@ -10,8 +10,9 @@ import toastify from "../utils/toastNotification";
 
 const useStyles = makeStyles({
   root: {
-    width: "70%",
+    maxWidth: 900,
     margin: [[20, "auto"]],
+    padding: 20,
   },
   text: {
     margin: [[20, 0]],
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
 function ForgotPassword() {
   const classes = useStyles();
 
-  // Schema for validating input fields
+  // Schema for validating input field
   const schema = {
     email: Joi.string().email().max(255).required().label("Email Address"),
   };
@@ -45,7 +46,7 @@ function ForgotPassword() {
   }
   return (
     <div className={classes.root}>
-      <h1>Reset Your Password</h1>
+      <h1>Send link for resetting password</h1>
       <p className={classes.text}>
         Please Enter your email address and we will send you link for resetting
         your password
