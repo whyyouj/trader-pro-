@@ -49,11 +49,11 @@ npm i && cd client && npm i
 Before running your project add `.env` file in project root with following variables:
 
 ```
-- GMAIL_USER=<your_gmail_account_email_address>
-- GMAIL_PASS=<your_gmail_account_password>
-- jwtPrivateKey=<secret_key_for_jwt>  For authentication & authorization
-- tokenKey=<secret_key_for_token> For email verification and reset password request
-- MONGO_URI=<mongo_cloud_uri>
+> GMAIL_USER=<your_gmail_account_email_address>
+> GMAIL_PASS=<your_gmail_account_password>
+> jwtPrivateKey=<secret_key_for_jwt>  For authentication & authorization
+> tokenKey=<secret_key_for_token> For email verification and reset password request
+> MONGO_URI=<mongo_cloud_uri>
 
 ```
 
@@ -71,4 +71,4 @@ npm run dev
 ## Contribution
 
 Any suggestions, recommendations or contributions are welcome.
-Also, if you see any bad practices in code, kindly pointing it out.
+Also, if you see any bad practices in code, kindly point it out.
