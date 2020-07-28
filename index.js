@@ -24,13 +24,13 @@ require("./startup/config")();
 require("./startup/db")();
 require("./startup/routes")(app);
 
-// if (isProduction) {
-app.use(express.static("client/build"));
+if (isProduction) {
+  app.use(express.static("client/build"));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
-// }
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Server is running on port ${port}...`));
