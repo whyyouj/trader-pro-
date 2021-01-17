@@ -8,8 +8,6 @@ const {
   REFRESH_TOKEN,
 } = process.env;
 
-console.log(CLIENT_ID);
-
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
