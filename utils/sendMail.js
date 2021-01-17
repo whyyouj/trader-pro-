@@ -1,13 +1,28 @@
 const nodemailer = require("nodemailer");
 
+const {
+  GMAIL_USER,
+  CLIENT_ID,
+  CLIENT_SECRET,
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+} = process.env;
+
+console.log(CLIENT_ID);
+
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true, // use SSL
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
+    type: "OAuth2",
+    user: GMAIL_USER,
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    refreshToken: REFRESH_TOKEN,
+    accessToken: ACCESS_TOKEN,
+    expires: 1484314697598,
   },
 });
 
