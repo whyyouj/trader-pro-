@@ -68,7 +68,4 @@ npm run dev
 
 ```
 
-## Contribution
-
-Any suggestions, recommendations or contributions are welcome.
-Also, if you see any bad practices in code, kindly point it out.
+**Thanks!**
