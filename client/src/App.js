@@ -13,6 +13,9 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import "./App.css";
 
+
+import Dashboard from "./components/DashboardPage/Dashboard";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -25,7 +28,7 @@ function App() {
         <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/unverified-user" component={NotVerified} />
         <Route path="/confirmEmail/:token" component={ConfirmEmail} />
-        <Route path="/register" component={Register} />
+        <Route path="/register" component={Dashboard} />
         <Route path="/login" component={Login} />
         <Route path="/logout" render={() => dispatch(logoutUser())} />
         <ProtectedRoute path="/user" component={User} />
