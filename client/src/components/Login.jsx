@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" align="center">
       {"Copyright © "} {new Date().getFullYear()} {" | Find me on "}
-      <MaterialLink target="_blank" href="https://github.com/ShariqBinShoaib">
+      <MaterialLink target="_blank" href="">
         GitHub
       </MaterialLink>
       {"."}

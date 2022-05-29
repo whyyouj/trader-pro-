@@ -207,7 +207,7 @@ export default function Register() {
           <MaterialLink
             onMouseDown={handleMouseDown}
             target="_blank"
-            href="https://github.com/ShariqBinShoaib"
+            href=""
           >
             GitHub
           </MaterialLink>
